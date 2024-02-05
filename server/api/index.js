@@ -20,15 +20,15 @@ app.use(cors({
 }))
 app.use(express.json());
 
-app.post('/api/createPost', db.createPost);
+app.post('/createPost', db.createPost);
 
-app.get('/api/posts', db.getPosts);
+app.get('/posts', db.getPosts);
 
-app.get('/api/singlePost', db.getSinglePost);
+app.get('/singlePost', db.getSinglePost);
 
-app.post('/api/createComment', db.createComment);
+app.post('/createComment', db.createComment);
 
-app.get('/api/getComments', db.getComments);
+app.get('/getComments', db.getComments);
 
 app.listen(process.env.PORT, () => {
     console.log(`App running on port ${process.env.PORT}.`);
