@@ -1,9 +1,12 @@
 const express = require('express');
 const app = express();
-const router = express.Router();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const db = require('./queries');
+const dotenv = require('dotenv');
+
+// get config vars
+dotenv.config();
 
 app.use(bodyParser.json())
 app.use(
@@ -13,18 +16,20 @@ app.use(
 )
 app.use(cors({
     credentials: true,
-    origin: 'https://localhost:5173'
+    origin: process.env.CLIENT_URL
 }))
 app.use(express.json());
 
-app.post('/createPost', db.createPost);
+app.post('/api/createPost', db.createPost);
 
-app.get('/posts', db.getPosts);
+app.get('/api/posts', db.getPosts);
 
-app.get('/singlePost', db.getSinglePost);
+app.get('/api/singlePost', db.getSinglePost);
 
-app.post('/createComment', db.createComment);
+app.post('/api/createComment', db.createComment);
 
-app.get('/getComments', db.getComments);
+app.get('/api/getComments', db.getComments);
 
-app.listen(4000);
+app.listen(process.env.PORT, () => {
+    console.log(`App running on port ${process.env.PORT}.`);
+});

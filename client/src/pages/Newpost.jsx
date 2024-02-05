@@ -18,7 +18,7 @@ const Newpost = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(title, content);
-        const response = await axios.post("http://localhost:4000/createPost", {
+        const response = await axios.post("/api/createPost", {
             title: title,
             content: content
         })
