@@ -1,12 +1,10 @@
 const express = require('express');
 const app = express();
+require('dotenv').config({ path: require('find-config')('.env') })
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const db = require('./queries');
-const dotenv = require('dotenv');
 
-// get config vars
-dotenv.config();
 
 app.use(bodyParser.json())
 app.use(
@@ -32,4 +30,5 @@ app.get('/api/getComments', db.getComments);
 
 app.listen(process.env.PORT, () => {
     console.log(`App running on port ${process.env.PORT}.`);
+    console.log(process.env.CLIENT_URL)
 });
