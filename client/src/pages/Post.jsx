@@ -13,7 +13,7 @@ const Post = () => {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const response = await axios.get("/singlePost", {
+            const response = await axios.get("/api/singlePost", {
                 params: {
                     id: postID
                 }
@@ -22,7 +22,7 @@ const Post = () => {
         }
 
         const fetchComments = async () => {
-            const response = await axios.get("/getComments", {
+            const response = await axios.get("/api/getComments", {
                 params: {
                     id: postID
                 }
@@ -41,12 +41,12 @@ const Post = () => {
     const handleSubmitComment = async (e) => {
         e.preventDefault();
         console.log(comment);
-        await axios.post("/createComment", {
+        await axios.post("/api/createComment", {
             post_id: postID,
             content: comment
         })
 
-        const updatedComments = await axios.get("/getComments", {
+        const updatedComments = await axios.get("/api/getComments", {
             params: {
                 id: postID
             }
