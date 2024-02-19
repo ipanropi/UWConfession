@@ -15,16 +15,17 @@ const Home = () => {
         fetchPosts();
     }, []);
 
-
     return (
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 p-8 min-h-screen">
                 {posts.map(({post_id, title, content, to_char}) => (
                     <Link to={`/post/${post_id}`} key={post_id}
-                          className="flex flex-col justify-center items-center min-h-72 p-4 gap-2  transition duration-150 ease-out hover:-translate-y-1 hover:scale-105 hover:bg-gray-200 hover:rounded-md">
-                        <img
-                            src="https://images.squarespace-cdn.com/content/v1/624b3c6d692bd24ce26121ca/1649097848557-WK8UT5I9K54FX8569LNW/03_20160720S1_WEATHERBY_ANGLERS_160.jpg?format=2500w"
-                            alt="picture"/>
-                        <div className="flex flex-col p-0  w-full">
+                          className="aspect-square flex flex-col justify-center items-center gap-4 min-h- transition duration-150 ease-out hover:-translate-y-1 hover:shadow-2xl">
+                        <div className="flex flex-1 w-full justify-center items-center bg-gray-400" >
+                            <h1>
+                                {title.slice(0, 10)}
+                            </h1>
+                        </div>
+                        <div className="flex flex-col pl-4 pr-4 pb-4 w-full h-2/5">
                             <h3 className="text-xs pt-2">{to_char}</h3>
                             <h1 className="text-xl font-bold pt-2 capitalize">{title}</h1>
                             <p className="text-sm pt-2 first-letter:capitalize whitespace-pre-line line-clamp-4">{content}</p>
