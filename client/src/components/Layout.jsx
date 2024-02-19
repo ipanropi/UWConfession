@@ -6,7 +6,7 @@ import {Outlet} from "react-router-dom";
 const Layout = () => {
 
     return (
-        <div className="flex flex-col justify-between p-4 min-h-screen">
+        <div className="flex flex-col justify-between p-4 min-h-screen bg-[#fafafa]">
             <Navbar/>
             <Outlet/>
             <Footer/>
