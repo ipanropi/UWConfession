@@ -12,11 +12,7 @@ app.use(
         extended: true,
     })
 )
-app.use(cors({
-    credentials: true,
-    origin: process.env.CLIENT_URL,
-    sameSite: 'none'
-}))
+
 app.use(express.json());
 
 app.post('/api/createPost', db.createPost);
