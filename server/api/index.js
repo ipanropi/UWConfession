@@ -14,7 +14,8 @@ app.use(
 )
 app.use(cors({
     credentials: true,
-    origin: process.env.CLIENT_URL
+    origin: process.env.CLIENT_URL,
+    sameSite: 'none'
 }))
 app.use(express.json());
 
