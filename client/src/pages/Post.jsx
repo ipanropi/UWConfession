@@ -6,12 +6,18 @@ const Post = () => {
     const [post, setPost] = useState({});
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
+    const [honeypot, setHoneypot] = useState("");
     const {postID} = useParams();
     const navigate = useNavigate();
 
 
 
     useEffect(() => {
+
+        const updatePosts = async () => {
+            const response = await axios.put(`/api/updatePost?id=${postID}`);
+        }
+
         const fetchPosts = async () => {
             const response = await axios.get("/api/singlePost", {
                 params: {
@@ -33,6 +39,7 @@ const Post = () => {
         window.scrollTo(0, 0);
         fetchPosts();
         fetchComments();
+        updatePosts();
 
     }, [postID]);
 
@@ -40,20 +47,35 @@ const Post = () => {
 
     const handleSubmitComment = async (e) => {
         e.preventDefault();
-        console.log(comment);
-        await axios.post("/api/createComment", {
-            post_id: postID,
-            content: comment
-        })
+        grecaptcha.ready(async () => {
+            const token = await grecaptcha.execute(import.meta.env.VITE_RECAPTCHA_SITE_KEY, {
+                action: 'submit'
+            })
+            const response = await axios.post("/api/createComment", {
+                post_id: postID,
+                content: comment,
+                honeypot: honeypot,
+                token: token
+            })
 
-        const updatedComments = await axios.get("/api/getComments", {
-            params: {
-                id: postID
+            if(response.data.error) {
+                alert(response.data.error)
+                return
             }
+
+            const updatedComments = await axios.get("/api/getComments", {
+                params: {
+                    id: postID
+                }
+            })
+
+            setComments(updatedComments.data);
+            setComment('');
         })
 
-        setComments(updatedComments.data);
-        setComment('');
+
+
+
     }
 
     return (
@@ -98,6 +120,7 @@ const Post = () => {
                         <textarea required value={comment} onChange={(e) => setComment(e.target.value)} rows="6"
                                   placeholder="Write a comment..."
                                   className="border rounded-lg px-4 py-2 w-full mb-2 min-h"/>
+                                <input type="hidden" value="" onChange={(e) => setHoneypot(e.target.value)}/>
                                 <button
                                     type="submit"
                                     className="text-sm border px-4 py-3 rounded-xl bg-blue-600 text-white text-center drop-shadow-sm hover:bg-blue-800">

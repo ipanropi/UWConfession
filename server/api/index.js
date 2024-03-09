@@ -21,6 +21,8 @@ app.get('/api/posts', db.getPosts);
 
 app.get('/api/singlePost', db.getSinglePost);
 
+app.put('/api/updatePost', db.updatePost);
+
 app.post('/api/createComment', db.createComment);
 
 app.get('/api/getComments', db.getComments);
