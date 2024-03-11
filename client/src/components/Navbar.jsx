@@ -1,14 +1,50 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useLocation, useParams} from "react-router-dom";
+import axios from "axios";
 
 const Navbar = () => {
     const [active, setActive] = useState('/');
     const location = useLocation();
+    const [prompt, setPrompt] = useState('');
 
-
-    useEffect(() => {
+    useEffect( () => {
         setActive(location.pathname);
     }, [location]);
+
+    useEffect(() => {
+        const fetchPrompt = async () => {
+            const today = new Date().toISOString().slice(0, 10); // Get current date as YYYY-MM-DD
+            const cachedPrompt = localStorage.getItem('dailyPrompt');
+            const cachedDate = localStorage.getItem('promptDate');
+
+            // Check if there's a cached prompt for today
+            if (cachedPrompt && cachedDate === today) {
+                setPrompt(JSON.parse(cachedPrompt));
+            } else {
+                // If not, fetch a new prompt and cache it
+                const response = await axios.get('/api/getPrompt');
+                localStorage.setItem('dailyPrompt', JSON.stringify(response.data));
+                localStorage.setItem('promptDate', today);
+                setPrompt(response.data);
+            }
+        };
+
+        fetchPrompt();
+
+        // Calculate milliseconds until the start of the next day
+        const now = new Date();
+        const msUntilTomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1) - now;
+
+        // Set up a timer to refresh the prompt at the start of the next day
+        const timer = setTimeout(() => {
+            localStorage.removeItem('dailyPrompt'); // Clear cached prompt
+            localStorage.removeItem('promptDate'); // Clear cached date
+            fetchPrompt(); // Fetch and cache a new prompt
+        }, msUntilTomorrow);
+
+        // Clear the timer if the component unmounts
+        return () => clearTimeout(timer);
+    }, []);
 
     const styles = (to) => {
         if (active === to) {
@@ -18,8 +54,11 @@ const Navbar = () => {
         return "flex gap-2 md:px-4 md:py-2 font-bold text-center"
     }
 
+
+
     return (
-            <div className="flex justify-between gap-4 p-4 mb-4 sm:w-full xl:w-5/6 xl:mx-auto ">
+        <div className="flex flex-col">
+            <div className="flex justify-between gap-4 mb-3 p-4 sm:w-full xl:w-5/6 xl:mx-auto ">
                 <Link to={"/home"} className={styles("/home")}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                         <path
@@ -35,6 +74,14 @@ const Navbar = () => {
                     </Link>
                 </div>
             </div>
+            <div id="banner" tabIndex="-1"
+                 className="flex z-50 gap-8 justify-center items-center py-3 px-4 w-full bg-gray-50 sm:items-center lg:py-4 border-t border-b border-gray-200 mb-8">
+                <p className="text-sm font-mono md:text-center">Don't know what to write? Check out our daily prompts! <br/><br/>
+                    <span className="text-blue-500">{prompt}</span>
+                </p>
+            </div>
+        </div>
+
     );
 };
 

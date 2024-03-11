@@ -27,6 +27,8 @@ app.post('/api/createComment', db.createComment);
 
 app.get('/api/getComments', db.getComments);
 
+app.get('/api/getPrompt', db.getPrompt);
+
 app.listen(process.env.PORT, () => {
     console.log(`App running on port ${process.env.PORT}.`);
     console.log(process.env.CLIENT_URL)

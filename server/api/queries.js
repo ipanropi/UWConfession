@@ -122,6 +122,28 @@ const getComments = async (request, response) => {
     })
 }
 
+const getPrompt = async (request, response) => {
+    pool.query('SELECT prompt FROM prompts WHERE used = false ORDER BY RANDOM() LIMIT 1', (error, results) => {
+        if(results.rows.length === 0){
+            pool.query('UPDATE prompts SET used = false WHERE used = true', (error, results) => {
+                if (error){
+                    throw error;
+                }
+            })
+        }
+        if (error) {
+            throw error
+        }
+
+        pool.query('UPDATE prompts SET used = true WHERE prompt = $1', [results.rows[0].prompt], (error, results) => {
+            if (error){
+                throw error;
+            }
+        })
+        response.status(201).send(results.rows[0].prompt);
+    })
+}
+
 
 module.exports = {
     createPost,
@@ -129,5 +151,6 @@ module.exports = {
     updatePost,
     getSinglePost,
     createComment,
-    getComments
+    getComments,
+    getPrompt
 }

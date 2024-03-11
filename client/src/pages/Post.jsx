@@ -14,9 +14,7 @@ const Post = () => {
 
     useEffect(() => {
 
-        const updatePosts = async () => {
-            const response = await axios.put(`/api/updatePost?id=${postID}`);
-        }
+
 
         const fetchPosts = async () => {
             const response = await axios.get("/api/singlePost", {
@@ -36,10 +34,19 @@ const Post = () => {
             setComments(response.data);
         }
 
+        const updatePosts = async () => {
+            const response = await axios.put(`/api/updatePost?id=${postID}`);
+        }
+
         window.scrollTo(0, 0);
         fetchPosts();
         fetchComments();
-        updatePosts();
+        
+        const timer = setTimeout(() => {
+            updatePosts();
+        }, 1750);
+
+        return () => clearTimeout(timer);
 
     }, [postID]);
 
