@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import Share from "../components/Share.jsx";
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
@@ -54,7 +55,8 @@ const Home = () => {
         <div className="grid grid-cols-12">
             {posts.slice(startIndex, startIndex + range).map((post) => {
                return (
-                   <Link to={`/post/${post.post_id}`} className="col-span-12 md:col-start-2 md:col-span-10 lg:col-start-4 lg:col-span-6 flex flex-col flex-1 p-2 mt-8 border-b border-gray-200 hover:border-gray-400">
+                   <Link to={`/post/${post.post_id}`}
+                         className="col-span-12 md:col-start-2 md:col-span-10 lg:col-start-4 lg:col-span-6 flex flex-col flex-1 p-2 mt-8 border-b border-gray-200 hover:border-gray-400">
                        <div className="flex justify-between">
                            <p to={`/post/${post.post_id}`} className="text-sm">
                                {post.to_char}
@@ -75,18 +77,24 @@ const Home = () => {
                        <h1 className="text-xl font-bold first-letter:capitalize font-['Helvetica Neue']">
                            {post.title}
                        </h1>
-                       <h2 >
+                       <h2>
                            <p className="text-sm whitespace-pre-line line-clamp-2">
                                <span className="first-letter:capitalize">{post.content}</span>
                            </p>
                        </h2>
-                       <Link to={`/post/${post.post_id}`} className="flex justify-end text-sm font-mono cursor-pointer text-blue-400 hover:underline mt-2 mb-4">
-                           <p>Read More ></p>
-                       </Link>
+                       <div className="flex justify-between items-center mt-2">
+                           <Link to={`/post/${post.post_id}`}
+                                 className="text-sm font-mono cursor-pointer text-blue-400 hover:underline">
+                               <p>Read More &gt;</p>
+                           </Link>
+                           <Share/>
+                       </div>
                    </Link>
                )
             })}
-            <div className="col-span-12 flex flex-col flex-1 p-4 border-gray-200 mt-8 text-xl font-bold text-center cursor-pointer" onClick={onLoadMore}>
+            <div
+                className="col-span-12 flex flex-col flex-1 p-4 border-gray-200 mt-8 text-xl font-bold text-center cursor-pointer"
+                onClick={onLoadMore}>
                 <p className="first-letter:capitalize">
                     {range > posts.length - 1 ? "No more posts" : "Load more"
                     }
