@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
+import Share from "../components/Share.jsx";
 
 const Post = () => {
     const [post, setPost] = useState({});
@@ -117,8 +118,11 @@ const Post = () => {
                         </div>
                     </div>
                     <div className="w-full p-4 border-t">
-                        <div className="text-xl font-bold pb-4">
-                            Comments
+                        <div className="flex justify-between items-center mt-2">
+                            <p className="text-xl font-bold pb-4">
+                                Comments
+                            </p>
+                            <Share/>
                         </div>
                         <div className="mb-8">
                             <form onSubmit={handleSubmitComment} >
