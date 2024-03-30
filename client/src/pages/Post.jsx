@@ -12,7 +12,7 @@ const Post = () => {
     const {postID} = useParams();
     const navigate = useNavigate();
 
-    
+
     useEffect(() => {
 
 
@@ -118,14 +118,16 @@ const Post = () => {
                         </div>
                     </div>
                     <div className="w-full p-4 border-t">
-                        <div className="flex justify-between items-center mt-2">
-                            <p className="text-xl font-bold pb-4">
-                                Comments
-                            </p>
-                            <Share/>
+                        <div className="flex justify-center items-center mt-2">
+                            <div className="flex justify-between items-center w-full max-w-2xl">
+                                <p className="text-xl font-bold pb-4">
+                                    Comments
+                                </p>
+                                <Share/>
+                            </div>
                         </div>
                         <div className="mb-8">
-                            <form onSubmit={handleSubmitComment} >
+                            <form onSubmit={handleSubmitComment}>
                         <textarea required value={comment} onChange={(e) => setComment(e.target.value)} rows="6"
                                   placeholder="Write a comment..."
                                   className="border rounded-lg px-4 py-2 w-full mb-2 min-h"/>
