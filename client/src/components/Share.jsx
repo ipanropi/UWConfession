@@ -12,8 +12,8 @@ const Share = () => {
                 title: 'Check out this confession on uwoffmychest!',
                 url: `${window.location.origin}${location.pathname}`
             })
-                .then(() => alert('Successfully shared!'))
-                .catch((error) => alert('Error sharing, try again later.'));
+                .then(() => console.log('Successful share'))
+                .catch((error) => console.log('Error sharing:', error));
         }
     };
 

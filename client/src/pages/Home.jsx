@@ -55,13 +55,13 @@ const Home = () => {
         <div className="grid grid-cols-12">
             {posts.slice(startIndex, startIndex + range).map((post) => {
                return (
-                   <Link to={`/post/${post.post_id}`}
+                   <div
                          className="col-span-12 md:col-start-2 md:col-span-10 lg:col-start-4 lg:col-span-6 flex flex-col flex-1 p-2 mt-8 border-b border-gray-200 hover:border-gray-400">
-                       <div className="flex justify-between">
-                           <p to={`/post/${post.post_id}`} className="text-sm">
+                       <Link to={`/post/${post.post_id}`} className="flex justify-between">
+                           <Link to={`/post/${post.post_id}`} className="text-sm">
                                {post.to_char}
-                           </p>
-                           <div className="flex items-center space-x-2">
+                           </Link>
+                           <Link to={`/post/${post.post_id}`} className="flex items-center space-x-2">
                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                                    <path strokeLinecap="round" strokeLinejoin="round"
@@ -69,19 +69,19 @@ const Home = () => {
                                    <path strokeLinecap="round" strokeLinejoin="round"
                                          d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                </svg>
-                               <p className="text-sm">
+                               <Link to={`/post/${post.post_id}`} className="text-sm">
                                    {post.views}
-                               </p>
-                           </div>
-                       </div>
-                       <h1 className="text-xl font-bold first-letter:capitalize font-['Helvetica Neue']">
+                               </Link>
+                           </Link>
+                       </Link>
+                       <Link to={`/post/${post.post_id}`} className="text-xl font-bold first-letter:capitalize font-['Helvetica Neue']">
                            {post.title}
-                       </h1>
-                       <h2>
+                       </Link>
+                       <Link to={`/post/${post.post_id}`}>
                            <p className="text-sm whitespace-pre-line line-clamp-2">
                                <span className="first-letter:capitalize">{post.content}</span>
                            </p>
-                       </h2>
+                       </Link>
                        <div className="flex justify-between items-center mt-2">
                            <Link to={`/post/${post.post_id}`}
                                  className="text-sm font-mono cursor-pointer text-blue-400 hover:underline">
@@ -89,7 +89,7 @@ const Home = () => {
                            </Link>
                            <Share/>
                        </div>
-                   </Link>
+                   </div>
                )
             })}
             <div
