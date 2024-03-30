@@ -120,7 +120,7 @@ const Post = () => {
                     <div className="w-full p-4 border-t">
                         <div className="flex justify-center items-center mt-2">
                             <div className="flex justify-between items-center w-full max-w-2xl">
-                                <p className="text-xl font-bold pb-4">
+                                <p className="text-xl font-bold">
                                     Comments
                                 </p>
                                 <Share/>
