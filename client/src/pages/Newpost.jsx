@@ -37,22 +37,21 @@ const Newpost = () => {
                 window.rdt('track', 'Lead'); // Track the story submission event
             }
 
-            console.log(response.data);
-            navigate('/home');
+            navigate('/');
         })
 
 
     }
 
     return (
-        <div className="flex-grow flex justify-center items-center gap-8 w-full h-full ">
+        <div className="flex-grow flex justify-center items-center gap-8 w-full h-full pt-4">
             <div className="flex flex-col justify-evenly h-full rounded-lg min-h-96 w-full  lg:w-3/5 mx-auto ">
                 <div className="flex w-full xl:w-3/4 xl:justify-start mx-auto mb-4">
                     <h1 className="text-2xl font-bold">Add New Post</h1>
                 </div>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     <div className="flex flex-col justify-center gap-1">
-                    <label className="w-full xl:w-3/4 mx-auto text-lg ">Title</label>
+                        <label className="w-full xl:w-3/4 mx-auto text-lg ">Title</label>
                         <div className="flex justify-start w-full xl:w-3/4 mx-auto">
                             <input required placeholder="Title" className="w-full lg:w-3/5 border rounded-lg px-4 py-3"
                                    type="text"

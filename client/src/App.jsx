@@ -1,34 +1,24 @@
-import './App.css'
-import {Navigate, Route, Routes} from "react-router-dom";
-import Home from "./pages/Home.jsx";
-import Newpost from "./pages/Newpost.jsx";
-import Post from "./pages/Post.jsx";
-import Layout from "./components/Layout.jsx";
-import axios from "axios";
-import {useEffect} from "react";
+import React, { useEffect } from 'react';
+import './App.css'; // Keep your global styles here
+import axios from 'axios';
+import FeedbackDrawer from "./components/FeedbackDrawer.jsx";
 
-function App() {
-    axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL;
+const App = () => {
     useEffect(() => {
+        // Set up axios base URL
+        axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL;
+
+        // Dynamically load scripts or perform other global side effects
         const script = document.createElement('script');
         script.src = `https://www.google.com/recaptcha/api.js?render=${import.meta.env.VITE_RECAPTCHA_SITE_KEY}`;
         script.async = true;
         document.body.appendChild(script);
-        return () => {
-            document.body.removeChild(script);
-        }
-    }, [location.pathname]);
 
-    return (
-        <Routes>
-            <Route path={'/'} element={<Layout/>}>
-                <Route index element={<Navigate to="/home" replace />} />
-                <Route path="/home" element={<Home/>}/>
-                <Route path="/newpost" element={<Newpost/>}/>
-                <Route path="/post/:postID" element={<Post/>}/>
-            </Route>
-        </Routes>
-    )
-}
+        return () => document.body.removeChild(script);
+    }, []);
 
-export default App
+    // Return children, a provider, or simply null if it's just for initialization
+    return null;
+};
+
+export default App;

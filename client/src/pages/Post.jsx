@@ -7,11 +7,11 @@ const Post = () => {
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
     const [honeypot, setHoneypot] = useState("");
+    const [loading, setLoading] = useState(true)
     const {postID} = useParams();
     const navigate = useNavigate();
 
-
-
+    
     useEffect(() => {
 
 
@@ -37,11 +37,9 @@ const Post = () => {
         const updatePosts = async () => {
             const response = await axios.put(`/api/updatePost?id=${postID}`);
         }
-
-        window.scrollTo(0, 0);
         fetchPosts();
         fetchComments();
-        
+
         const timer = setTimeout(() => {
             updatePosts();
         }, 1750);
