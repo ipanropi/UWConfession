@@ -114,7 +114,7 @@ const Post = () => {
 
                         </div>
                     </div>
-                    <div className="flex justify-center items-center mt-2">
+                    <div className="w-full p-4 border-t">
                         <div className="flex justify-between items-center pb-4">
                             <p className="text-xl font-bold">
                                 Comments
