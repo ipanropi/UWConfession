@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
 
-const Share = () => {
+const Share = (post_id) => {
     const location = useLocation();
 
     const isShareSupported = navigator.share;
@@ -10,7 +10,7 @@ const Share = () => {
         if (isShareSupported) {
             navigator.share({
                 title: 'Check out this confession on uwoffmychest!',
-                url: `${window.location.origin}${location.pathname}`
+                url: `https://uwoffmychest.com/post/${post_id}`
             })
                 .then(() => console.log('Successful share'))
                 .catch((error) => console.log('Error sharing:', error));

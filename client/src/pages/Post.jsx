@@ -119,7 +119,7 @@ const Post = () => {
                             <p className="text-xl font-bold">
                                 Comments
                             </p>
-                            <Share/>
+                            <Share post_id={post?.post_id}/>
                         </div>
                         <div className="mb-8">
                             <form onSubmit={handleSubmitComment}>

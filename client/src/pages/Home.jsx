@@ -87,7 +87,7 @@ const Home = () => {
                                  className="text-sm font-mono cursor-pointer text-blue-400 hover:underline">
                                <p>Read More &gt;</p>
                            </Link>
-                           <Share/>
+                           <Share post_id={post.post_id}/>
                        </div>
                    </div>
                )
