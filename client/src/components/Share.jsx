@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
 
-const Share = (post_id) => {
+const Share = ({post_id}) => {
     const location = useLocation();
 
     const isShareSupported = navigator.share;
