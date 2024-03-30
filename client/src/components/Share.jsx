@@ -18,9 +18,9 @@ const Share = () => {
     };
 
     return (
-        <div className="flex flex-col gap-4">
+        <div>
             {isShareSupported && (
-                <button onClick={onClick} aria-label="Share this page">
+                <button onClick={onClick} aria-label="Share this page" className="flex flex-col gap-4">
                     <p className="text-sm font-mono cursor-pointer">Share</p>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
